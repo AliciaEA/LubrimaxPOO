@@ -32,13 +32,13 @@
 	      url="jdbc:mysql://localhost:3306/LubrimaxPOOdb"/>	      
 	-->      
 	
-	<!-- PostgreSQL 
+
 	<Resource name="jdbc/LubrimaxPOODS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="postgres" password=""
+	      username="postgres" password="Almaesac"
 	      driverClassName="org.postgresql.Driver" 
 	      url="jdbc:postgresql://localhost/LubrimaxPOOdb"/>
-	-->
+
 	
 	<!-- Oracle 
 	<Resource name="jdbc/LubrimaxPOODS" auth="Container" type="javax.sql.DataSource"
