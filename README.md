@@ -20,6 +20,11 @@ Este proyecto es una aplicación empresarial desarrollada en **Java** utilizando
 
 ---
 
+## Presentacion CANVAS
+
+https://www.canva.com/design/DAGzzY0n0CI/PmaXXzApo_RPZ3vcpkG0IQ/edit?utm_content=DAGzzY0n0CI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+---
 ## 🛠️ Diagrama UML
 
 https://online.visual-paradigm.com/share.jsp?id=343234323930322d31
