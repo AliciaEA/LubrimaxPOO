@@ -17,7 +17,8 @@ public class Venta
     @Hidden
     private Integer id;
 
-    @DefaultValueCalculator(CurrentLocalDateTimeCalculator.class)
+    @DefaultValueCalculator(CurrentTimestampCalculator.class) // <--- CAMBIO AQUÍ
+
     private LocalDateTime fechaHora;
 
     @ManyToOne(fetch=FetchType.LAZY)

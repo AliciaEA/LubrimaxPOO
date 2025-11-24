@@ -5,6 +5,12 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity
+@View(name = "Simple", members =
+        "codigoBarras; " +
+                "nombre; " +
+                "precioCompra, precioVenta; " +
+                "categoria; " +
+                "stockActual")
 @Getter @Setter
 public class Producto
 {

@@ -20,8 +20,8 @@ public class Compra
     @DefaultValueCalculator(CurrentLocalDateCalculator.class)
     private LocalDate fechaCompra;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @DescriptionsList
+    @ManyToOne(fetch = FetchType.LAZY)
+    @DescriptionsList(descriptionProperties = "nombre")
     private Proveedor proveedor;
 
     @OneToMany(mappedBy="compra", cascade=CascadeType.ALL, orphanRemoval=true)
