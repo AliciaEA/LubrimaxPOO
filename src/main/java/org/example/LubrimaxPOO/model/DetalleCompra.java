@@ -25,6 +25,7 @@ public class DetalleCompra
     private int cantidad;
 
     @Stereotype("MONEY")
+    @Column(precision = 18, scale = 2)
     private BigDecimal precioUnitario;
 
     @Stereotype("MONEY")

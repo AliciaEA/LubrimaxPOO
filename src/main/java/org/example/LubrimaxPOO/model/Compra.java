@@ -21,7 +21,7 @@ public class Compra
     private LocalDate fechaCompra;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @DescriptionsList(descriptionProperties = "nombre")
+    @DescriptionsList(descriptionProperties = "nombreEmpresa")
     private Proveedor proveedor;
 
     @OneToMany(mappedBy="compra", cascade=CascadeType.ALL, orphanRemoval=true)

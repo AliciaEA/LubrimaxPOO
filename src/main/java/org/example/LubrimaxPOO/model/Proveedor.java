@@ -4,6 +4,7 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity
+@View(name = "Simple", members = "nombre; telefono; direccion")
 @Getter @Setter
 public class Proveedor
 {

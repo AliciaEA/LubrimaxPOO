@@ -26,6 +26,7 @@ public class Producto
     private String nombre;
 
     @Stereotype("MONEY")
+    @Column(precision = 18, scale = 2)
     private BigDecimal precioCompra;
 
     @Stereotype("MONEY")
