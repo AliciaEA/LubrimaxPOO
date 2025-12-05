@@ -8,34 +8,25 @@ import org.openxava.calculators.*;
 import lombok.*;
 
 @Entity
+@Table(name = "Compras")
 @Getter @Setter
-@View(members="fechaCompra, proveedor; detalles { detalles }; totalCompra")
 public class Compra
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID Numérico
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Hidden
-    private Integer id;
+    @Column(name = "id_compra")
+    private Long id;
 
-    @DefaultValueCalculator(CurrentLocalDateCalculator.class)
-    private LocalDate fechaCompra;
+    @Column(name = "fecha_compra")
+    private LocalDateTime fechaCompra = LocalDateTime.now();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @DescriptionsList(descriptionProperties = "nombreEmpresa")
+    @Column(name = "total_compra")
+    private Double totalCompra;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_proveedor")
     private Proveedor proveedor;
 
-    @OneToMany(mappedBy="compra", cascade=CascadeType.ALL, orphanRemoval=true)
-    @ListProperties("producto.codigoBarras, producto.nombre, cantidad, precioUnitario, subtotal")
-    private Collection<DetalleCompra> detalles;
-
-    @Stereotype("MONEY")
-    @ReadOnly
-    public BigDecimal getTotalCompra() {
-        BigDecimal total = BigDecimal.ZERO;
-        if (detalles == null) return total;
-        for (DetalleCompra d : detalles) {
-            total = total.add(d.getSubtotal());
-        }
-        return total;
-    }
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetalleCompra> detalles;
 }

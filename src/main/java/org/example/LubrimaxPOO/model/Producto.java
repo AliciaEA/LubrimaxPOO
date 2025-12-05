@@ -5,46 +5,37 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity
-@View(name = "Simple", members =
-        "codigoBarras; " +
-                "nombre; " +
-                "precioCompra, precioVenta; " +
-                "categoria; " +
-                "stockActual")
+@Table(name = "Productos")
 @Getter @Setter
 public class Producto
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID Numérico
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Hidden
-    private Integer id;
+    @Column(name = "id_producto")
+    private Long id;
 
-    @Column(length=20)
+    @Column(name = "codigo_barras", length = 100)
     private String codigoBarras;
 
-    @Column(length=100) @Required
+    @Column(name = "nombre", length = 100) @Required
     private String nombre;
 
-    @Stereotype("MONEY")
-    @Column(precision = 18, scale = 2)
-    private BigDecimal precioCompra;
+    @Stereotype("MEMO")
+    @Column(name = "descripcion")
+    private String descripcion;
 
-    @Stereotype("MONEY")
-    private BigDecimal precioVenta;
+    @Column(name = "precio_compra")
+    private Double precioCompra;
 
-    @ReadOnly
-    private int stockActual;
+    @Column(name = "precio_venta")
+    private Double precioVenta;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @DescriptionsList(descriptionProperties="nombre")
+    @Column(name = "stock_actual")
+    private Integer stockActual = 0;
+
+    @ManyToOne @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
-    // --- MÉTODOS ---
-    public void aumentarStock(int cantidad) {
-        this.stockActual += cantidad;
-    }
-
-    public void disminuirStock(int cantidad) {
-        this.stockActual -= cantidad;
-    }
+    @ManyToOne @JoinColumn(name = "id_proveedor")
+    private Proveedor proveedor;
 }

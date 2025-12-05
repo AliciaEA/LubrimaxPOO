@@ -5,44 +5,26 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity
+@Table(name = "Detalle_Compras")
 @Getter @Setter
 public class DetalleCompra
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID Numérico
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Hidden
-    private Integer id;
+    @Column(name = "id_detalle_compra")
+    private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_compra")
     private Compra compra;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @ReferenceView("Simple")
-    @Required
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_producto")
     private Producto producto;
 
-    @Required
-    private int cantidad;
+    @Column(name = "cantidad_compras", nullable = false)
+    private Integer cantidad;
 
-    @Stereotype("MONEY")
-    @Column(precision = 18, scale = 2)
-    private BigDecimal precioUnitario;
-
-    @Stereotype("MONEY")
-    @Depends("cantidad, precioUnitario")
-    public BigDecimal getSubtotal() {
-        if (precioUnitario == null) return BigDecimal.ZERO;
-        return precioUnitario.multiply(new BigDecimal(cantidad));
-    }
-
-    // --- LÓGICA STOCK ---
-    @PostPersist
-    public void onCreate() {
-        if (producto != null) producto.aumentarStock(cantidad);
-    }
-
-    @PostRemove
-    public void onDelete() {
-        if (producto != null) producto.disminuirStock(cantidad);
-    }
+    @Column(name = "precio_unitario_compra")
+    private Double precioUnitarioCompra;
 }

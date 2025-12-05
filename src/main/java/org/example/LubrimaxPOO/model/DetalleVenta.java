@@ -6,50 +6,26 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity
+@Table(name = "Detalle_Ventas")
 @Getter @Setter
 public class DetalleVenta
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID Numérico
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Hidden
-    private Integer id;
+    @Column(name = "id_detalle")
+    private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_venta")
     private Venta venta;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @ReferenceView("Simple")
-    @Required
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_producto")
     private Producto producto;
 
-    @Required
-    private int cantidad;
+    @Column(name = "cantidad_ventas", nullable = false)
+    private Integer cantidad;
 
-    @Stereotype("MONEY")
-    private BigDecimal precioUnitario;
-
-    @Stereotype("MONEY")
-    @Depends("cantidad, precioUnitario")
-    public BigDecimal getSubtotal() {
-        if (precioUnitario == null) return BigDecimal.ZERO;
-        return precioUnitario.multiply(new BigDecimal(cantidad));
-    }
-
-    // --- LÓGICA STOCK ---
-    @PrePersist
-    public void validarStock() {
-        if (producto != null && producto.getStockActual() < this.cantidad) {
-            throw new ValidationException("Stock insuficiente. Disponible: " + producto.getStockActual());
-        }
-    }
-
-    @PostPersist
-    public void onCreate() {
-        if (producto != null) producto.disminuirStock(cantidad);
-    }
-
-    @PostRemove
-    public void onDelete() {
-        if (producto != null) producto.aumentarStock(cantidad);
-    }
+    @Column(name = "precio_unitario_venta")
+    private Double precioUnitarioVenta;
 }

@@ -8,40 +8,30 @@ import org.openxava.calculators.*;
 import lombok.*;
 
 @Entity
+@Table(name = "Ventas")
 @Getter @Setter
-@View(members="fechaHora, cliente, empleado; detalles { detalles }; totalVenta")
 public class Venta
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID Numérico
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Hidden
-    private Integer id;
+    @Column(name = "id_venta")
+    private Long id;
 
-    @DefaultValueCalculator(CurrentTimestampCalculator.class) // <--- CAMBIO AQUÍ
+    @Column(name = "fecha_hora")
+    private LocalDateTime fechaHora = LocalDateTime.now();
 
-    private LocalDateTime fechaHora;
+    @Column(name = "total_venta")
+    private Double totalVenta;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @ReferenceView("Simple")
-    @Required
+    @ManyToOne @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @Required
+    @ManyToOne @JoinColumn(name = "id_empleado")
     private Empleado empleado;
 
-    @OneToMany(mappedBy="venta", cascade=CascadeType.ALL, orphanRemoval=true)
-    @ListProperties("producto.codigoBarras, producto.nombre, cantidad, precioUnitario, subtotal")
-    private Collection<DetalleVenta> detalles;
+    @ManyToOne @JoinColumn(name = "id_metodo_pago")
+    private MetodoPago metodoPago;
 
-    @Stereotype("MONEY")
-    @ReadOnly
-    public BigDecimal getTotalVenta() {
-        BigDecimal total = BigDecimal.ZERO;
-        if (detalles == null) return total;
-        for (DetalleVenta d : detalles) {
-            total = total.add(d.getSubtotal());
-        }
-        return total;
-    }
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetalleVenta> detalles;
 }

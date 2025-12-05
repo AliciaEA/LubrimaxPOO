@@ -5,29 +5,17 @@ import lombok.*;
 
 @MappedSuperclass
 @Getter @Setter
-public class Persona
+public abstract class Persona
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incrementable (1, 2, 3...)
-    @Hidden
-    private Integer id;
-
-    @Column(length=50) @Required
+    @Column(name = "nombres", length = 100) @Required
     private String nombres;
 
-    @Column(length=50) @Required
+    @Column(name = "apellidos", length = 100) @Required
     private String apellidos;
 
-    @Column(length=20) @Required
+    @Column(name = "cedula", length = 50) @Required
     private String cedula;
 
-    @Column(length=20)
-    private String telefono;
-
-    @Stereotype("EMAIL")
+    @Column(name = "email", length = 100)
     private String email;
-
-    public String getNombreCompleto() {
-        return (nombres != null ? nombres : "") + " " + (apellidos != null ? apellidos : "");
-    }
 }

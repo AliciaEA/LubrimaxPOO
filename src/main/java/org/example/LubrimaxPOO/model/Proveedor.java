@@ -4,28 +4,26 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity
-@View(name = "Simple", members = "nombre; telefono; direccion")
+@Table(name = "Proveedores")
 @Getter @Setter
 public class Proveedor
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Hidden
-    private Integer id;
+    @Column(name = "id_proveedor")
+    private Long id;
 
-    @Column(length=100)
-    @Required
+    @Column(name = "nombre_empresa", length = 150) @Required
     private String nombreEmpresa;
-
-    @Column(length=50)
+    @Column(name = "nombre_contacto", length = 100)
     private String nombreContacto;
 
-    @Column(length=20)
+    @Column(name = "telefono", length = 50)
     private String telefono;
 
-    @Stereotype("EMAIL")
+    @Column(name = "email", length = 100)
     private String email;
 
-    @Stereotype("ADDRESS")
+    @Column(name = "direccion", length = 255)
     private String direccion;
 }

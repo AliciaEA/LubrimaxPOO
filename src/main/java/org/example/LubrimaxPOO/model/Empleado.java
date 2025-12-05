@@ -5,12 +5,17 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity
+@Table(name = "Empleados")
 @Getter @Setter
 public class Empleado extends Persona
 {
-    @Required
-    private LocalDate fechaContratacion;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Hidden
+    @Column(name = "id_empleado")
+    private Long id;
 
-    @Column(length=50)
-    private String puesto;
+    @Required
+    @Column(name = "fecha_contratacion")
+    private LocalDate fechaContratacion;
 }
