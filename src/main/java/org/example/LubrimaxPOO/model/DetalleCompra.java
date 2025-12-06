@@ -1,5 +1,5 @@
 package org.example.LubrimaxPOO.model;
-import java.math.*;
+import java.time.*;
 import javax.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
@@ -27,4 +27,23 @@ public class DetalleCompra
 
     @Column(name = "precio_unitario_compra")
     private Double precioUnitarioCompra;
+
+   
+    @PrePersist
+    private void actualizarStockAlGuardar() {
+        if (producto != null && cantidad != null && cantidad > 0) {
+            int stockActual = producto.getStockActual() == null ? 0 : producto.getStockActual();
+            producto.setStockActual(stockActual + cantidad);
+        }
+    }
+
+    @PreRemove
+    private void revertirStockAlEliminar() {
+        if (producto != null && cantidad != null && cantidad > 0) {
+            int stockActual = producto.getStockActual() == null ? 0 : producto.getStockActual();
+            int nuevoStock = stockActual - cantidad;
+            if (nuevoStock < 0) nuevoStock = 0; 
+            producto.setStockActual(nuevoStock);
+        }
+    }
 }

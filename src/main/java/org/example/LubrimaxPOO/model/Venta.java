@@ -1,10 +1,8 @@
 package org.example.LubrimaxPOO.model;
 import java.time.*;
-import java.math.*;
 import java.util.*;
 import javax.persistence.*;
 import org.openxava.annotations.*;
-import org.openxava.calculators.*;
 import lombok.*;
 
 @Entity
