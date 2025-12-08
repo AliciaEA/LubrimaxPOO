@@ -12,12 +12,8 @@
 		<controller name="Typical"/>		
 	</default-module>
 	
-	<!-- 
-	You can define additional modules, for example:	  
-	<module name="OnlyReadTeacher">
-		<model name="Teacher"/>
-		<controller name="Print"/>
-	</module>		
-	-->
-	
+	<!-- Módulos explícitos eliminados para evitar duplicados en el menú.
+	     OpenXava generará automáticamente un módulo por cada entidad usando
+	     el controlador Typical según la configuración de default-module. -->
+
 </application>

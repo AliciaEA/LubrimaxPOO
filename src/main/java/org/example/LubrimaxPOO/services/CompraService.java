@@ -15,6 +15,7 @@ public class CompraService
     @Transactional
     public Compra saveCompra(Compra compra)
     {
+        // La fecha se fija aquí; el stock se actualiza en DetalleCompra via callbacks JPA
         compra.setFechaCompra(LocalDateTime.now());
         em.persist(compra);
 
@@ -22,15 +23,16 @@ public class CompraService
         {
             for (DetalleCompra d : compra.getDetalles())
             {
+                // Asociamos el detalle con la compra; el callback @PrePersist en DetalleCompra
+                // se encargará de actualizar el stock del producto
                 d.setCompra(compra);
+
                 Producto p = em.find(Producto.class, d.getProducto().getId());
                 if (p == null) throw new IllegalArgumentException("Producto no encontrado: " + d.getProducto().getId());
-                int current = p.getStockActual() == null ? 0 : p.getStockActual();
-                p.setStockActual(current + d.getCantidad());
-                em.merge(p);
 
                 em.persist(d);
 
+                // Registro del movimiento de entrada asociado a la compra
                 Movimiento m = new Movimiento();
                 m.setProducto(p);
                 m.setTipo(MovimientoTipo.ENTRADA);
