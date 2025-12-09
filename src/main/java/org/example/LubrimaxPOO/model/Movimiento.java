@@ -30,4 +30,14 @@ public class Movimiento
 
     @Column(name = "referencia", length = 255)
     private String referencia;
+
+    // Relación con Venta (opcional)
+    @ManyToOne
+    @JoinColumn(name = "id_venta")
+    private Venta venta;
+
+    // Relación con Compra (opcional)
+    @ManyToOne
+    @JoinColumn(name = "id_compra")
+    private Compra compra;
 }

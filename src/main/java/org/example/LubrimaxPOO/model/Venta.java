@@ -32,4 +32,8 @@ public class Venta
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleVenta> detalles;
+
+    // Movimientos asociados a esta venta
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Movimiento> movimientos = new ArrayList<>();
 }

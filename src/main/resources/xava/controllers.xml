@@ -21,7 +21,7 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     
     <!-- Session object:
     <object name="LubrimaxPOO_activeYear" class="java.lang.Integer" value="2015" 
-    	    scope="global"/>    
+    	scope="global"/>
     -->
     
     <!-- Controller:
@@ -30,7 +30,18 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     	<action name="new" icon="plus-box-multiple" keystroke="Control N"
         	class="actions.CreateTeacher">
     	</action>
-	</controller>    
+    </controller>
     -->
-    
+
+    <!-- Custom controllers for Venta and Compra to ensure save action executes our logic -->
+    <controller name="Venta">
+        <extends controller="Typical"/>
+        <action name="save" class="org.example.LubrimaxPOO.actions.SaveVentaAction"/>
+    </controller>
+
+    <controller name="Compra">
+        <extends controller="Typical"/>
+        <action name="save" class="org.example.LubrimaxPOO.actions.SaveCompraAction"/>
+    </controller>
+
 </controllers>

@@ -41,6 +41,19 @@ public class DetalleVenta
                 );
             }
             producto.setStockActual(stockActual - cantidad);
+
+            // Crear y asociar el movimiento de salida
+            if (venta != null) {
+                Movimiento m = new Movimiento();
+                m.setProducto(producto);
+                m.setTipo(MovimientoTipo.SALIDA);
+                m.setCantidad(cantidad);
+                m.setReferencia("Venta id: " + (venta.getId() == null ? "(nueva)" : venta.getId()));
+                m.setFechaMovimiento(LocalDateTime.now());
+                m.setVenta(venta);
+                if (venta.getMovimientos() == null) venta.setMovimientos(new java.util.ArrayList<>());
+                venta.getMovimientos().add(m);
+            }
         }
     }
 

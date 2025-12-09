@@ -34,6 +34,19 @@ public class DetalleCompra
         if (producto != null && cantidad != null && cantidad > 0) {
             int stockActual = producto.getStockActual() == null ? 0 : producto.getStockActual();
             producto.setStockActual(stockActual + cantidad);
+
+            // Crear y asociar el movimiento de entrada
+            if (compra != null) {
+                Movimiento m = new Movimiento();
+                m.setProducto(producto);
+                m.setTipo(MovimientoTipo.ENTRADA);
+                m.setCantidad(cantidad);
+                m.setReferencia("Compra id: " + (compra.getId() == null ? "(nueva)" : compra.getId()));
+                m.setFechaMovimiento(LocalDateTime.now());
+                m.setCompra(compra);
+                if (compra.getMovimientos() == null) compra.setMovimientos(new java.util.ArrayList<>());
+                compra.getMovimientos().add(m);
+            }
         }
     }
 

@@ -27,4 +27,8 @@ public class Compra
 
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleCompra> detalles;
+
+    // Movimientos asociados a esta compra
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Movimiento> movimientos = new ArrayList<>();
 }
