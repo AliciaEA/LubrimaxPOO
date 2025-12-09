@@ -6,6 +6,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "Detalle_Compras")
+@EntityListeners(org.example.LubrimaxPOO.listeners.DetalleCompraListener.class)
 @Getter @Setter
 public class DetalleCompra
 {
