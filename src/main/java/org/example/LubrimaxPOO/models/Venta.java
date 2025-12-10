@@ -19,7 +19,10 @@ import org.openxava.model.Identifiable;
 @View(members="Encabezado { numero, fecha, empleado, procesada; cliente, metodoPago } Detalles { detalles } Totales { total }")
 public class Venta extends Identifiable
 {
-    @Column(length=10) private String numero;
+    @Column(length=10) 
+    @DefaultValueCalculator(NumeroVentaCalculator.class)
+    @ReadOnly
+    private String numero;
 
     @DefaultValueCalculator(CurrentLocalDateCalculator.class)
     private LocalDate fecha;
