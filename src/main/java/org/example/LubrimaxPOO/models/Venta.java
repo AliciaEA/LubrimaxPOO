@@ -35,6 +35,7 @@ public class Venta extends Identifiable
 
     @ReadOnly private boolean procesada;
 
+    // 1. Definimos la propiedad (Ya no es un método con lógica dentro)
     @Stereotype("MONEY")
     @Depends("detalles.cantidad, detalles.costo")
     public BigDecimal getTotal() {
