@@ -14,7 +14,18 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
 -->
 
 <controllers>
-    
+    <controller name="Venta">
+        <extends controller="Typical"/>
+        <action name="procesar" mode="detail" confirm="true"
+                class="org.example.LubrimaxPOO.actions.ProcesarVentaAction"
+                image="images/execute.gif"/>
+    </controller>
+    <controller name="Compra">
+        <extends controller="Typical"/>
+        <action name="procesar" mode="detail" confirm="true"
+                class="com.example.lubrimax.actions.ProcesarCompraAction"
+                image="images/execute.gif"/>
+    </controller>
     <!-- Environment variable:
     <env-var name="LubrimaxPOO_DEFAULT_YEAR" value="2015"/> 
     -->
@@ -32,5 +43,5 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     	</action>
 	</controller>    
     -->
-    
+
 </controllers>
