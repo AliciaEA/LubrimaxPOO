@@ -1,5 +1,7 @@
 package org.example.LubrimaxPOO.models;
+
 import javax.persistence.*;
+import javax.validation.ValidationException; // IMPORTANTE: Necesario para lanzar el error
 import org.openxava.annotations.*;
 import org.openxava.calculators.CurrentLocalDateCalculator;
 import org.openxava.model.*;
@@ -12,20 +14,21 @@ import org.openxava.model.Identifiable;
 
 @Entity
 @Tab(name="Todas", properties="fecha, numero, cliente.nombre, total, procesada, empleado.nombre")
-// OJO AL CAMBIO AQUI: ${empleado.usuario} ahora es texto simple
 @Tab(name="MisVentas", properties="fecha, numero, cliente.nombre, total, procesada",
-        baseCondition="${empleado.usuario} = '${user.name}'")
+        baseCondition="${empleado.username} = '${user.name}'")
 @View(members="Encabezado { numero, fecha, empleado, procesada; cliente, metodoPago } Detalles { detalles } Totales { total }")
 public class Venta extends Identifiable
 {
     @Column(length=10) private String numero;
-    @DefaultValueCalculator(CurrentLocalDateCalculator.class) private LocalDate fecha;
+
+    @DefaultValueCalculator(CurrentLocalDateCalculator.class)
+    private LocalDate fecha;
 
     @ManyToOne(fetch=FetchType.LAZY) @DescriptionsList private Cliente cliente;
     @ManyToOne(fetch=FetchType.LAZY) @DescriptionsList private MetodoPago metodoPago;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @ReadOnly // Se llena solo con el calculador
+    @ReadOnly
     @DefaultValueCalculator(CurrentUserEmpleadoCalculator.class)
     private Empleado empleado;
 
@@ -35,7 +38,6 @@ public class Venta extends Identifiable
 
     @ReadOnly private boolean procesada;
 
-    // 1. Definimos la propiedad (Ya no es un método con lógica dentro)
     @Stereotype("MONEY")
     @Depends("detalles.cantidad, detalles.costo")
     public BigDecimal getTotal() {
@@ -45,7 +47,30 @@ public class Venta extends Identifiable
         }
         return t;
     }
-    // Getters y Setters...
+
+    // --- LÓGICA DE VALIDACIÓN (NUEVO) ---
+
+    @PrePersist
+    private void validarStock() {
+        // Si no hay detalles, no validamos (para permitir guardar borradores vacíos si quieres)
+        if (detalles == null || detalles.isEmpty()) return;
+
+        for (DetalleVenta detalle : detalles) {
+            Producto producto = detalle.getProducto();
+            // Refrescamos el producto para asegurar que tenemos el stock real de la BD
+            // (A veces JPA mantiene versiones viejas en memoria)
+
+            if (producto.getStock() < detalle.getCantidad()) {
+                throw new ValidationException(
+                        "Error de Stock: El producto '" + producto.getNombre() +
+                                "' tiene stock " + producto.getStock() +
+                                ", pero intentas vender " + detalle.getCantidad()
+                );
+            }
+        }
+    }
+
+    // Getters y Setters
     public String getNumero() { return numero; }
     public void setNumero(String numero) { this.numero = numero; }
     public LocalDate getFecha() { return fecha; }

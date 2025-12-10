@@ -1,22 +1,60 @@
 <?xml version = "1.0" encoding = "ISO-8859-1"?>
-
 <!DOCTYPE application SYSTEM "dtds/application.dtd">
 
-<application name="LubrimaxPOO"> 
-	
-	<!-- 
-	A default module for each entity is assumed with the
-	controllers on <default-module/>
-	-->
+<application name="LubrimaxPOO">
 
+    <module name="Venta">
+        <model name="Venta"/>
+        <controller name="Typical"/>
+        <controller name="SeguridadGlobal"/>
+        <controller name="Venta"/> </module>
 
-	
-	<!-- 
-	You can define additional modules, for example:	  
-	<module name="OnlyReadTeacher">
-		<model name="Teacher"/>
-		<controller name="Print"/>
-	</module>		
-	-->
-	
+    <module name="Compra">
+        <model name="Compra"/>
+        <controller name="Typical"/>
+        <controller name="SeguridadGlobal"/>
+        <controller name="Compra"/> </module>
+
+    <module name="Producto">
+        <model name="Producto"/>
+        <controller name="Typical"/>
+        <controller name="SeguridadGlobal"/>
+    </module>
+
+    <module name="Movimiento">
+        <model name="Movimiento"/>
+        <controller name="Typical"/>
+        <controller name="SeguridadGlobal"/>
+    </module>
+
+    <module name="Cliente">
+        <model name="Cliente"/>
+        <controller name="Typical"/>
+        <controller name="SeguridadGlobal"/>
+    </module>
+
+    <module name="Proveedor">
+        <model name="Proveedor"/>
+        <controller name="Typical"/>
+        <controller name="SeguridadGlobal"/>
+    </module>
+
+    <module name="Empleado">
+        <model name="Empleado"/>
+        <controller name="Typical"/>
+        <controller name="SeguridadGlobal"/>
+    </module>
+
+    <module name="Categoria">
+        <model name="Categoria"/>
+        <controller name="Typical"/>
+        <controller name="SeguridadGlobal"/>
+    </module>
+
+    <module name="MetodoPago">
+        <model name="MetodoPago"/>
+        <controller name="Typical"/>
+        <controller name="SeguridadGlobal"/>
+    </module>
+
 </application>

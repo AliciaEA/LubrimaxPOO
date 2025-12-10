@@ -19,6 +19,10 @@ public class Empleado extends Identifiable
     @Stereotype("PASSWORD") // Para que se vean asteriscos ****
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Required
+    private Rol rol;
+
     // Getters y Setters
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
@@ -26,4 +30,6 @@ public class Empleado extends Identifiable
     public void setUsername(String usuario) { this.username = usuario; }
     public String getPassword() { return password; }
     public void setPassword(String contrasena) { this.password = contrasena; }
+    public Rol getRol() { return rol; }
+    public void setRol(Rol rol) { this.rol = rol; }
 }

@@ -14,6 +14,10 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
 -->
 
 <controllers>
+    <controller name="SeguridadGlobal">
+        <action name="init" on-init="true" hidden="true"
+                class="org.example.LubrimaxPOO.actions.SeguridadModulosAction"/>
+    </controller>
     <controller name="Venta">
         <extends controller="Typical"/>
         <action name="procesar" mode="detail" confirm="true"
