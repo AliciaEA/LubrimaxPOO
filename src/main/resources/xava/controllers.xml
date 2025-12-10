@@ -14,6 +14,12 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
 -->
 
 <controllers>
+    <controller name="DashboardController">
+        <action name="iniciar" on-init="true" hidden="true"
+                class="org.example.LubrimaxPOO.actions.IniciarDashboardAction"/>
+        <action name="refrescar" image="images/refresh.gif"
+                class="org.example.LubrimaxPOO.actions.IniciarDashboardAction"/>
+    </controller>
     <controller name="SeguridadGlobal">
         <action name="init" on-init="true" hidden="true"
                 class="org.example.LubrimaxPOO.actions.SeguridadModulosAction"/>

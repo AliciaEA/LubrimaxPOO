@@ -2,6 +2,10 @@
 <!DOCTYPE application SYSTEM "dtds/application.dtd">
 
 <application name="LubrimaxPOO">
+    <module name="Inicio">
+        <model name="Dashboard"/>
+        <controller name="DashboardController"/>
+        <controller name="SeguridadGlobal"/> </module>
 
     <module name="Venta">
         <model name="Venta"/>
