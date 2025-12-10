@@ -11,7 +11,7 @@ public class CurrentUserEmpleadoCalculator implements ICalculator
 
         // Buscamos un Empleado cuyo campo 'usuario' coincida con el login actual
         Query query = XPersistence.getManager()
-                .createQuery("from Empleado e where e.usuario = :loginActual");
+                .createQuery("from Empleado e where e.username = :loginActual");
         query.setParameter("loginActual", loginActual);
 
         try {

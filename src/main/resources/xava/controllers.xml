@@ -23,9 +23,17 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     <controller name="Compra">
         <extends controller="Typical"/>
         <action name="procesar" mode="detail" confirm="true"
-                class="com.example.lubrimax.actions.ProcesarCompraAction"
+                class="org.example.LubrimaxPOO.actions.ProcesarCompraAction"
                 image="images/execute.gif"/>
     </controller>
+
+    <controller name="SignIn">
+        <action name="init" on-init="true" hidden="true"
+                class="com.openxava.naviox.actions.InitSignInAction"/>
+        <action name="signIn"
+                class="org.example.LubrimaxPOO.actions.DarAccesoAction"/>
+    </controller>
+
     <!-- Environment variable:
     <env-var name="LubrimaxPOO_DEFAULT_YEAR" value="2015"/> 
     -->
